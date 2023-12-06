@@ -112,6 +112,9 @@
                             <button class="Edit" (click)="mostrarForm(item.cedula!)">
                                 <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
                             </button>
+                            <button (click)="openCredenciales(item.cedula)" class="btn">
+                                <fa-icon [icon]="llave"></fa-icon> Credenciales
+                            </button>
                         </td>
                     </tr>
                     }
@@ -204,6 +207,9 @@
                             </button>
                             <button (click)="eliminarPersona(item.cedula, item.Primer_Apellido)" class="Delete">
                                 <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+                            </button>
+                            <button (click)="openCredenciales(item.cedula)" class="btn">
+                                <fa-icon [icon]="llave"></fa-icon> Credenciales
                             </button>
                         </td>
                     </tr>
