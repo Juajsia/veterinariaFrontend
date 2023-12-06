@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section class="acciones">
+        <h2 id="titulo">Mascotas</h2>
+        <div>
+            @if (listPets.length !== 0 && !buscar) {
+            <button class="btn" (click)="Buscar()"><fa-icon [icon]="lupa"></fa-icon> Buscar</button>
+            }
+            <button class="btn" (click)="mostrarForm('0')" id="add"><fa-icon [icon]="faPlus"></fa-icon> Agregar
+                Mascota</button>
+        </div>
+    </section>
+    @if (buscar) {
+    <section class="busqueda">
+        <form action="" id="form-buscar">
+            <input type="text" [(ngModel)]="filtarNombre" name="nombre" class="params" placeholder="Ingrese el nombre">
+            <input type="number" [(ngModel)]="filtarCed" name="cedula" class="params"
+                placeholder="Ingrese la cedula del dueño">
+            <button (click)="filtrarMascota()" class="btn" type="button"><fa-icon [icon]="lupa"></fa-icon>
+                Buscar</button>
+                <button (click)="getMascotas()" (click)="buscar=false" class="btn" id="cerrarBuscar"
+                type="button">
+                <fa-icon [icon]="cerrar"></fa-icon> Cerrar búsqueda</button>
+        </form>
+    </section>
+    }
+    @if (listPets.length !== 0) {
+    <section class="contenido">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Especie</th>
+                    <th>Raza</th>
+                    <th>Color</th>
+                    <th>Tamaño</th>
+                    <th>Peso</th>
+                    <th>Cédula del dueño</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of listPets; track item.IDMascota) {
+                <tr>
+                    <td>{{item.Nombre}}</td>
+                    <td>{{item.Edad}}</td>
+                    <td>{{item.Especie}}</td>
+                    <td>{{item.Raza}}</td>
+                    <td>{{item.Color}}</td>
+                    <td>{{item.Tamanio}}</td>
+                    <td>{{item.Peso}}kg</td>
+                    <td>{{item.IdDuenio}}</td>
+                    <td class="btns">
+                        <div class="container">
+                        <button class="Edit" (click)="mostrarForm(item.IDMascota!)">
+                            <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
+                        </button>
+                        <button (click)="historialVacunas(item.IDMascota!)" class="btn">
+                            <fa-icon [icon]="vacuna"></fa-icon> Historial Vacunas
+                        </button>
+                    </div>   
+                    <div class="container">                                
+                        <button (click)="eliminarMascota(item.IDMascota!, item.Nombre)" class="Delete">
+                            <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+                        </button>   
+                        <button (click)="historialClinico(item.IDMascota!)" class="btn">
+                            <fa-icon [icon]="clinico"></fa-icon> Historial Clinico
+                        </button> 
+                    </div>                  
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    }@else {
+    <h3>No hay Mascotas Registradas</h3>
+    }
+</main>
+
+<app-footer></app-footer>

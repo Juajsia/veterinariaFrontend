@@ -1,0 +1,119 @@
+<section>
+    <article>
+        <div class="from-container">
+            <h1>{{operacion}} Registro En La Historia Clínica de {{nombre}}</h1>
+            <form [formGroup]="form" (ngSubmit)="CUHistoriaClinica()" id="form">
+                <div class="inputs">
+                    <div class="group">
+                        <label for="Motivo" class="form-input">Motivo:</label>
+                        <input formControlName="Motivo" type="text" id="Motivo" class="form-input"
+                            placeholder="Ingrese el motivo" required>
+                        @if (form.get('Motivo')?.hasError('required') && form.get('Motivo')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        <label for="CedulaDueño" class="form-input">Cedula del Dueño:</label>
+                        @if (isEditable) {
+                        <input formControlName="CedulaDueño" type="number" id="CedulaDueño" class="form-input"
+                            placeholder="Ingrese la cedula del Dueño" required>
+                        } @else {
+                        <input formControlName="CedulaDueño" type="number" id="CedulaDueño" class="form-input"
+                            placeholder="Ingrese la cedula del Dueño" required readonly>
+                        }
+
+                        @if (form.get('CedulaDueño')?.hasError('required') && form.get('CedulaDueño')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        <label for="IdVeterinario" class="form-input">Cedula del veterinario:</label>
+                        <input formControlName="IdVeterinario" type="number" id="IdVeterinario" class="form-input"
+                            placeholder="Ingrese la cedula del veterinario" required>
+                        @if (form.get('IdVeterinario')?.hasError('required') && form.get('IdVeterinario')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        <!-- <label for="Procedimiento" class="form-input">Procedimiento:</label>
+                        <input formControlName="Procedimiento" type="text" id="Procedimiento" class="form-input"
+                            placeholder="Ingrese la Procedimiento" required>
+                        @if (form.get('Procedimiento')?.hasError('required') && form.get('Procedimiento')?.touched) {
+                        <span>*Campo requerido*</span>
+                        } -->
+                        <label for="Procedimiento" class="form-input">Procedimiento:</label>
+                        <select [(ngModel)]="ProcedimientoSeleccionado" [ngModelOptions]="{standalone: true}"
+                            (change)="capturarProcedimiento($event)" class="" name="select">
+                            <option value="Desparasitación" selected>Desparasitación</option>
+                            <option value="Fisioterapia">Fisioterapia</option>
+                            <option value="Vacunación">Vacunación</option>
+                            <option value="Exámen">Exámen</option>
+                            <option value="Cirugía">Cirugía</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        @if (form.get('Procedimiento')?.hasError('required') && form.get('Procedimiento')?.touched)
+                        {
+                        <span>*Campo requerido*</span>
+                        }
+                        @if (ProcedimientoSeleccionado == 'Vacunación') {
+                        <label for="NombreVacunas" class="form-input">Vacunas aplicadas:</label>
+                        <textarea formControlName="NombreVacunas" id="NombreVacunas" name="NombreVacunas" rows="15"
+                            cols="50" required placeholder="Ingrese las vacunas (separadas por comas)"
+                            maxlength="1000"></textarea>
+                        <!-- <input formControlName="NombreVacunas" type="text" id="NombreVacunas"
+                            class="form-input" placeholder="Ingrese las vacunas (separadas por comas)" required> -->
+                        @if (form.get('NombreVacunas')?.hasError('required') && form.get('NombreVacunas')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        }
+                    </div>
+                    <div class="group">
+                        <label for="Sintomatologia" class="form-input">Sintomatología:</label>
+                        <textarea formControlName="Sintomatologia" id="Sintomatologia" name="Sintomatologia" rows="15"
+                            cols="50" required placeholder="Ingrese la Sintomatología" maxlength="1000"></textarea>
+                        <!-- <input formControlName="Sintomatologia" type="text" id="Sintomatologia"
+                            class="form-input" placeholder="Ingrese la Sintomatologia" required> -->
+                        @if (form.get('Sintomatologia')?.hasError('required') && form.get('Sintomatologia')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        <label for="Diagnostico" class="form-input">Diagnóstico:</label>
+                        <textarea formControlName="Diagnostico" id="Diagnostico" name="Diagnostico" rows="15" cols="50"
+                            required placeholder="Ingrese el diagnóstico" maxlength="1000"></textarea>
+                        <!-- <input formControlName="Diagnostico" type="text" id="Diagnostico" class="form-input"
+                            placeholder="Ingrese la Diagnostico" required> -->
+                        @if (form.get('Diagnostico')?.hasError('required') && form.get('Diagnostico')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+                        <label for="MedicamentosAlergia" class="form-input">Medicamentos que le causan alergia:</label>
+                        <textarea formControlName="MedicamentosAlergia" id="MedicamentosAlergia"
+                            name="MedicamentosAlergia" rows="15" cols="50"
+                            placeholder="Ingrese los medicamentos que le causan alergia" maxlength="1000"></textarea>
+                        <!-- <input formControlName="MedicamentosAlergia" type="text" id="MedicamentosAlergia"
+                            class="form-input" placeholder="Ingrese los Medicamentos que le causan Alergia" required> -->
+                        @if (form.get('MedicamentosAlergia')?.hasError('required') &&
+                        form.get('MedicamentosAlergia')?.touched) {
+                        <span>*Campo requerido*</span>
+                        }
+
+                    </div>
+                </div>
+
+
+                @if (orden) {
+                <!-- <form id="formOrden">
+                    Campos de orden
+                </form> -->
+                <button class="btn" id="btnOrden" (click)="orden=false"><fa-icon [icon]="cancelar"></fa-icon> Cancelar
+                    Orden
+                </button>
+                } @else {
+                <button class="btn" id="btnOrden" (click)="orden=true"><fa-icon [icon]="cancelar"></fa-icon> Crear Orden
+                </button>
+                }
+
+                <div class="botones">
+                    <button class="btn" id="cancel" (click)="volver()"><fa-icon [icon]="cancelar"></fa-icon> Cancelar
+                    </button>
+                    <button [disabled]="form.invalid" (click)="click()" type="submit" class="btn" id="save"><fa-icon
+                            [icon]="guardar"></fa-icon>
+                        Guardar </button>
+                </div>
+            </form>
+
+        </div>
+    </article>
+</section>

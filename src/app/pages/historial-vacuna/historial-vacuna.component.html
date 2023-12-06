@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section class="acciones">
+        @if (listHistorialVacunasfiltrado.length !== 0) {
+        <h2 id="titulo">Historial Vacuna {{listHistorialVacunasfiltrado[0].nombreMascota}}</h2>
+        }@else {
+        <div></div>
+        }
+        <div>
+            <button (click)="Buscar()" class="Delete"><fa-icon [icon]="lupa"></fa-icon> Regresar</button>
+        </div>
+    </section>
+    @if (listHistorialVacunasfiltrado.length !== 0) {
+    <section class="contenido">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Nombre Vacuna</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of listHistorialVacunasfiltrado; track item.IdHistorialVacunas) {
+                <tr>
+                    <td>{{item.IdHistorialVacunas}}</td>
+                    <td>{{item.Fecha}}</td>
+                    <td>{{item.nombreVacuna}}</td>
+                    <td class="btns">
+                        <button (click)="eliminarMascota(item.IdHistorialVacunas!)" class="Delete">
+                            <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    }@else {
+    <h3>Historial de Vacunas Vacio</h3>
+    }
+</main>
+
+<app-footer></app-footer>
