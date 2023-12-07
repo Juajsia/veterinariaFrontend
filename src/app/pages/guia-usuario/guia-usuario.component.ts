@@ -11,7 +11,16 @@ import { FooterComponent } from '../../components/footer/footer.component';
   styleUrl: './guia-usuario.component.css'
 })
 export class GuiaUsuarioComponent {
+  rol: string = ''
 
+  constructor(){
+    const rolLocalS = localStorage.getItem('rol')!
+    if (rolLocalS === '1'){
+      this.rol = 'administrador'
+    } else {
+      this.rol = 'veterinario'
+    }
+  }
 }
 
 

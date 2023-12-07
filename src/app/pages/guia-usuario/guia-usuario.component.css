@@ -10,8 +10,11 @@
     width: 100%;
     margin: 0 auto;
     background-color: #fdfdfd;
-    padding: 80px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    padding-top: 80px;
+    /* box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); */
+    display: flex;
+    flex-direction: column;
+    gap: 40px
 }
 
 .text {
@@ -30,18 +33,33 @@
     margin: auto;
     overflow: hidden;
     border-bottom-left-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-h2{
+
+h2 {
     margin-top: 50px;
 
 }
-h1{
+
+h1 {
     margin-top: 50px;
+    margin-left: 20vw;
+    align-self: self-start;
 }
-p{
+
+#tituloPrincipal {
+    text-align: center;
+    margin-left: 0;
+    align-self: center;
+}
+
+p {
     font-size: 20px;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
-img{
+
+img {
     width: 100%;
-}   
+}
